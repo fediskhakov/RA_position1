@@ -4,7 +4,7 @@ Project "Location, Social Norms and Recycling" with Efthymia Kyriakopoulou, Phil
 
 *How to apply for the position:*
 
-The test_data.dta contains data on the characteristics of the locations (municipalities) in Sweden which were chosen for residence by the respondence of a small survey.
+The test_data.csv contains data on the characteristics of the locations (municipalities) in Sweden which were chosen for residence by the respondence of a small survey.
 
 Using Stata, estimate the McFadden choice model using this data, and determine the main variables that explain the choices of residence locations.
 
