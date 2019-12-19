@@ -1,0 +1,31 @@
+ 
+ cd "/Users/minheechae/Google Drive/job/Fedor Ishakov/" 
+ 
+ import delimited "test_data.csv", encoding(UTF-8) clear
+ bysort municipality: gen a=_n
+ keep if a==1
+ drop a
+ gen altern=_n 
+ save "a", replace
+
+ import delimited "test_data.csv", encoding(UTF-8) clear
+ lab data "municipalities in Sweden which were chosen for residence by the respondence" 
+
+ gen id=_n
+ tab municipality, gen(mcp) 
+ reshape long mcp , i(id)  
+ rename _j altern 
+ lab define altern 1 "Borås" 2 "Eskilstuna" 3 "Gävle" 4 "Göteborg" 5 "Helsingborg" 6 "Jönköping" 7 "Karlskrona" 8 "Kristianstad" 9 "Linköping" 10 "Lund" 11 "Malmö" 12 "Norrköping" 13 "Stockholm" 14 "Sundsvall" 15 "Uppsala" 16 "Växjö" 17 "Åmål" 
+ lab values altern altern 
+ keep id altern mcp 
+ 
+ mmerge altern using "a", ukeep(employment-tsp) 
+ erase "a.dta" 
+ 
+ lab var mcp "Residential Choice"
+ lab var id "Respondent ID" 
+ lab var altern "Alternatives" 
+
+ asclogit mcp jobs temperature disposable, case(id) alternatives(altern) basealternative(1)  noconstant
+
+ 
